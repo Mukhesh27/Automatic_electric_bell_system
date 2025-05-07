@@ -1,0 +1,202 @@
+#define BLYNK_TEMPLATE_ID "TMPL3bhm4DtWH"
+#define BLYNK_TEMPLATE_NAME "sasi"
+#define BLYNK_AUTH_TOKEN "HG9oo82PdKH2j3shty-o76gMKZoUptBj"
+#include <Wire.h>
+#include <RTClib.h>
+#include <BlynkSimpleEsp8266.h>
+RTC_DS1307 RTC;
+
+const int ledPin = D3; 
+bool ledOn = false;
+ 
+char blynkInput[64];
+
+BlynkTimer timer;
+
+void setup() {
+  Serial.begin(9600);
+  Wire.begin(); 
+  RTC.begin();
+
+  pinMode(ledPin, OUTPUT);
+
+  Blynk.begin("HG9oo82PdKH2j3shty-o76gMKZoUptBj", "mukhesh", "123456789");
+  timer.setInterval(1000L, checkBlynkInput); 
+  DateTime newTime = DateTime(2023, 11, 6, 21, 6, 0);
+  RTC.adjust(newTime);
+}
+
+void loop() {
+ 
+  DateTime now = RTC.now();
+  Serial.print(now.year(), DEC);
+  Serial.print('/');
+  Serial.print(now.month(), DEC);
+  Serial.print('/');
+  Serial.print(now.day(), DEC);
+  Serial.print(' ');
+  Serial.print(now.hour(), DEC);
+  Serial.print(':');
+  Serial.print(now.minute(), DEC);
+  Serial.print(':');
+  Serial.print(now.second(), DEC);
+  Serial.println();
+   Blynk.run();
+  timer.run();
+   //delay(1000);
+}
+
+void checkBlynkInput() {
+  Blynk.syncVirtual(V0);
+  Blynk.syncVirtual(V1);
+  Blynk.syncVirtual(V2);
+  Blynk.syncVirtual(V3);
+  Blynk.syncVirtual(V4);
+  Blynk.syncVirtual(V5);
+  Blynk.syncVirtual(V6);
+ Blynk.syncVirtual(V7);
+}
+
+BLYNK_WRITE(V0) {
+  int input = param[0].asInt(); 
+  DateTime now = RTC.now();
+  int currentHour = now.hour();
+  int currentMinute = now.minute();
+  int k = currentHour * 3600 + currentMinute * 60 + now.second();
+  
+  if (k == input) {
+    if (!ledOn) {
+      digitalWrite(ledPin, HIGH);
+      ledOn = true;
+    }
+
+    delay(10000); 
+
+    digitalWrite(ledPin, LOW); 
+    ledOn = false;
+  }
+}
+
+BLYNK_WRITE(V1) {
+   int input = param[0].asInt();
+  DateTime now = RTC.now();
+  int currentHour = now.hour();
+  int currentMinute = now.minute();
+  int k = currentHour * 3600 + currentMinute * 60 + now.second();
+  
+  if (k == input) {
+    if (!ledOn) {
+      digitalWrite(ledPin, HIGH);
+      ledOn = true;
+    }
+
+    delay(10000);
+
+    digitalWrite(ledPin, LOW);
+    ledOn = false;
+  }
+}
+BLYNK_WRITE(V2) {
+   int input = param[0].asInt();
+  DateTime now = RTC.now();
+  int currentHour = now.hour();
+  int currentMinute = now.minute();
+  int k = currentHour * 3600 + currentMinute * 60 + now.second();
+  
+  if (k == input) {
+    if (!ledOn) {
+      digitalWrite(ledPin, HIGH); 
+      ledOn = true;
+    }
+
+    delay(10000);
+
+    digitalWrite(ledPin, LOW);
+    ledOn = false;
+  }
+}
+
+BLYNK_WRITE(V3) {
+   int input = param[0].asInt(); 
+  DateTime now = RTC.now();
+  int currentHour = now.hour();
+  int currentMinute = now.minute();
+  int k = currentHour * 3600 + currentMinute * 60 + now.second();
+  
+  if (k == input) {
+    if (!ledOn) {
+      digitalWrite(ledPin, HIGH); 
+      ledOn = true;
+    }
+
+    delay(10000);
+
+    digitalWrite(ledPin, LOW);
+    ledOn = false;
+  }
+}
+BLYNK_WRITE(V4) {
+   int input = param[0].asInt(); 
+  DateTime now = RTC.now();
+  int currentHour = now.hour();
+  int currentMinute = now.minute();
+  int k = currentHour * 3600 + currentMinute * 60 + now.second();
+  
+  if (k == input) {
+    if (!ledOn) {
+      digitalWrite(ledPin, HIGH);
+      ledOn = true;
+    }
+
+    delay(10000);
+
+    digitalWrite(ledPin, LOW);
+    ledOn = false;
+  }
+}
+BLYNK_WRITE(V5) {
+   int input = param[0].asInt();
+  DateTime now = RTC.now();
+  int currentHour = now.hour();
+  int currentMinute = now.minute();
+  int k = currentHour * 3600 + currentMinute * 60 + now.second();
+  
+  if (k == input) {
+    if (!ledOn) {
+      digitalWrite(ledPin, HIGH);
+      ledOn = true;
+    }
+
+    delay(10000);
+
+    digitalWrite(ledPin, LOW);
+    ledOn = false;
+  }
+}
+BLYNK_WRITE(V6) {
+   int input = param[0].asInt(); 
+  DateTime now = RTC.now();
+  int currentHour = now.hour();
+  int currentMinute = now.minute();
+  int k = currentHour * 3600 + currentMinute * 60 + now.second();
+  if (k == input) {
+    if (!ledOn) {
+      digitalWrite(ledPin, HIGH);
+      ledOn = true;
+    }
+
+    delay(10000);
+
+    digitalWrite(ledPin, LOW);
+    ledOn = false;
+  }
+}
+BLYNK_WRITE(V7) {
+   int input = param.asInt();
+ if(input==1){
+   digitalWrite(ledPin, HIGH);
+ }
+ else{ 
+  digitalWrite(ledPin, LOW);
+ }
+}
